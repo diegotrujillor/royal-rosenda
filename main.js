@@ -1,6 +1,3 @@
-angular.module('ngAlertLogicApp', [])
-  .controller('mainController', [
-    '$scope',
-    function($scope){
-      $scope.person = 'hello test';
-    }]);
+angular.module('ngAlertLogicApp', []).controller('mainController', function($scope){
+  $scope.person = 'hello test';
+});
