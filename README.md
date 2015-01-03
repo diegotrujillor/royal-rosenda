@@ -4,6 +4,7 @@ royal-rosenda
 This is an agile web-app development test for TMDb.org API proposed by Alert Logic.
 
 -Used Frameworks-
+=================
 Frontend: Angular.js, jQuery
 Backend: TMDb Public API
 Pattern: MVC
