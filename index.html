@@ -19,7 +19,7 @@
         <div class="col-sm-8 col-sm-offset-2 text-center">
           <form ng-submit="searchPerson()">
             <div class="form-group">
-              <input id="persons" type="text" class="form-control input-lg text-center" placeholder="Search for an actor's name..." onkeyup="getPersons()" ng-model="person">
+              <input id="persons" type="text" class="form-control input-lg text-center" placeholder="Search for an actor's name..." onkeyup="getPersons()" data-id="" ng-model="person">
             </div>
             <button class="btn btn-primary btn-lg" id="searchPerson">
               GO!
@@ -46,10 +46,12 @@
 		$('#heading').hide();
 		$('#fetch').css("margin-top", "150px");
 		$('#results').css("margin-top", "50px");
-		$('#results').css("width", "60%");
+		$('#results').css("width", "65%");
 		$('#logo').css("background", "url(tmdb-logo.png) top center no-repeat");
 		$('#searchPerson').on("click", function(){
-			$('#heading').show();
+			if($('#persons').attr("data-id")){
+				$('#heading').show();
+			}
 		});
   </script>
 </html>
