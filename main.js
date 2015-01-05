@@ -32,19 +32,31 @@ function getPersons(){
 /*****************************************/
 /*Date: 4/JAN/2014*/
 /*Author: <a href="mailto:diegotrujillor@gmail.com">Diego Fernando Trujillo</a>*/
-/*Description: This module allows fetch the movies data given an actor. (previously selected)*/
+/*Description: This module allows fetch recursively the movies data given an actor. (previously selected)*/
 /*********************************************************************************************/
 (function() {
 	angular.module('ngAlertLogicApp', []).controller('mainController', function($scope, $http) {
-		$scope.searchPerson = function(){
+		$scope.searchPerson = function(page, results){
 			if($('#persons').attr("data-id")){
-				$http.get('http://api.themoviedb.org/3/discover/movie?with_cast=' + $('#persons').attr("data-id") + '&sort_by=release_date.desc&api_key=f660eb4c7b379f980417e33f5054a807')
+				$http.get('http://api.themoviedb.org/3/discover/movie?with_cast=' + $('#persons').attr("data-id") + '&page=' + page + '&sort_by=release_date.desc&api_key=f660eb4c7b379f980417e33f5054a807')
 					.success(function(data){
-							$scope.persons = data.results;
+						if(data.total_pages > 1 && page <= data.total_pages){
+							page++;
+							$.each(data.results, function(){
+								item = {};
+								item["id"] = this.id;
+								item["release_date"] = this.release_date;
+								item["original_title"] = this.original_title;								
+								results.push(item);
+							});
+						  $scope.searchPerson(page, results)
+						}else{
+							return $scope.persons = results;
+						}
 					})
 					.error(function(data){
 						console.log('Error: ' + data)
-					});	
+					});
 			}
 		};
 	});

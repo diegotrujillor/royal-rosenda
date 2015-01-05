@@ -17,7 +17,7 @@
     <div class="container">
       <div id="fetch" class="row">
         <div class="col-sm-8 col-sm-offset-2 text-center">
-          <form ng-submit="searchPerson()">
+          <form ng-submit="searchPerson(1, [])">
             <div class="form-group">
               <input id="persons" type="text" class="form-control input-lg text-center" placeholder="Search for an actor's name..." onkeyup="getPersons()" data-id="" ng-model="person">
             </div>
@@ -40,9 +40,13 @@
 					<div class="col-md-8"><a href="#">{{person.original_title}}</a></div>
 				</div>
 			</div>
-		</div>	
+		</div>
+		<div class="loading" align="center">
+			<img src="ajax-loader.gif" alt="loading" />
+		</div>
   </body>
   <script>
+		$('.loading').hide();
 		$('#heading').hide();
 		$('#fetch').css("margin-top", "150px");
 		$('#results').css("margin-top", "50px");
@@ -51,7 +55,11 @@
 		$('#searchPerson').on("click", function(){
 			if($('#persons').attr("data-id")){
 				$('#heading').show();
-			}
+				$(".loading").show();
+				var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+				var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+				loading.css({ top: top, left: left });
+			}			
 		});
   </script>
 </html>
